@@ -1,0 +1,15 @@
+{
+  "name": "emoti9nal",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
