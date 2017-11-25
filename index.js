@@ -1,13 +1,7 @@
-var http = require('http');
-
-var server = http.createServer(function(request, response) {
-
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello madafaka");
-
+var io = require('socket.io').listen(3000); //3000 portunu dinlemeye başladık.
+    io.sockets.on('connection', function(socket){ // tüm node işlemlerini kapsayan ana fonksiyonumuz
+        socket.on('mesajgonder', function(data){ //clientte'ki mesajı aldık
+            socket.emit('mesajgitti', data) //server mesajı client'e geri gönderdi emit ile
+            socket.broadcast.emit('mesajgitti', data) //
+        });
 });
-
-var port = process.env.PORT || 1337;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
