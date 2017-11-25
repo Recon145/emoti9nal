@@ -1,44 +1,44 @@
-<!DOCTYPE html>
-    <head>
-        <title>Kodrella.com Nodejs Chat Örneği</title>
-        <meta name="author" content="Mehmet Alp - mehmetalp.com.tr">
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-            var socket = io.connect("http://localhost:3000"); // 3000 portuna connect olduk
-            $("#mesajGonder").click(function(){ // #mesajgonder'a tıklandığında
-                var mesaj = $("#mesajinput").val(); // #mesajinput'un value'sini al
-                var nick = $("#nickinput").val(); // #nickinput'un valuesini al
-                if (!mesaj){
-                return; // mesaj değişkeninin içi boşsa ya da yoksa işlem yapma
-                }
-                socket.emit('mesajgonder',{ //socket.emit ('mesajgonder') aracılığıyla server.js'de socket.on da bizi bekleyen komutu JSON olarak yolladık.
-                    'mesaj' : mesaj,
-                    'uid' : nick // Hem mesajı hem uid yani kullanıcı kimliğini socket.on'a aktardık.
-                });
-                $("#mesajinput").val("");
-            });
-            socket.on("mesajgitti", function(data){ //Server.js deki socket.emitten mesaj'ı client'imize socket.on(mesajgitti) ile aldık.
-                $("#yazismalar").append("<li>"+ data.uid + " diyor ki :"  + data.mesaj + "</li>"); // aldığımız datayı(mesaj ve nicki) append ile #yazismalar divinin içerisine li olarak ekledik.
-            });
-        });
-        </script>
-    </head>
-    <body>
-        <div class="chatsite">
-            <div class="mesaj-kapsa">
-                <ul id="yazismalar">
-                    <p>Mesajlar</p>
-                </ul>
-            </div>
-            <div class="form-kapsa">
-            <input type="text" id="nickinput" placeholder="Nick Giriniz"></input>
- 
-                <textarea id="mesajinput"></textarea>
-                <button id="mesajGonder">Gönder</button>
-            </div>
-        </div>
-    </body>
+﻿<!DOCTYPE html>
+	<head>
+		<title>Kodrella.com Nodejs Chat Örneği</title>
+		<meta name="author" content="Mehmet Alp - mehmetalp.com.tr">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+		<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			var socket = io.connect("http://localhost:3000");
+			$("#mesajGonder").click(function(){
+				var mesaj = $("#mesajinput").val();
+				var nick = $("#nickinput").val();
+				if (!mesaj){
+				return;
+				}
+				socket.emit('mesajgonder',{
+					'mesaj' : mesaj,
+					'uid' : nick
+				});
+				$("#mesajinput").val("");
+			});
+			socket.on("mesajgitti", function(data){
+				$("#yazismalar").append("<li>"+ data.uid + " diyor ki :"  + data.mesaj + "</li>");
+			});
+		});
+		</script>
+	</head>
+	<body>
+		<div class="chatsite">
+			<div class="mesaj-kapsa">
+				<ul id="yazismalar">
+					<p>Mesajlar</p>
+				</ul>
+			</div>
+			<div class="form-kapsa">
+			<input type="text" id="nickinput" placeholder="Nick Giriniz"></input>
+		
+				<textarea id="mesajinput"></textarea>
+				<button id="mesajGonder">Gönder</button>
+			</div>
+		</div>
+	</body>
 </html>
