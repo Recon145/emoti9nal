@@ -1,14 +1,11 @@
-var http = require('http');
-
-var server = http.createServer(function(request, response) {
-
-    response.writeHead(200, {"Content-Type": "text/plain"});
-  
-    response.end("way baiyen dusmanlarını");
-
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+ 
+io.on('connection',function(socket){
+    console.log('Yaşasın Soket Bağlantısı Başarılı !');
+    socket.emit('baglanincaHaberVer');
+    socket.on('baglantiBasarili',function(){
+        console.log('Karşılıklı bağlantı başarıyla sağlandı.');
+    });
 });
-
-var port = process.env.PORT || 3000;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
