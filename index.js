@@ -1,9 +1,13 @@
-var io = require('socket.io').listen(3000);
-	io.sockets.on('connection', function(socket){
-		socket.on('mesajgonder', function(data){
-			socket.emit('mesajgitti', data)
-			socket.broadcast.emit('mesajgitti', data)
-		});
+var http = require('http');
+
+var server = http.createServer(function(request, response) {
+
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.end("Hello World!");
+
 });
-		
-		
+
+var port = process.env.PORT || 1337;
+server.listen(port);
+
+console.log("Server running at http://localhost:%d", port);
